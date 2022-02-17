@@ -20,7 +20,9 @@ parser.add_argument('--cfg',
                     type=str)
 parser.add_argument('--exp-id', default='default', type=str,
                     help='Experiment ID')
-
+parser.add_argument('--checkpoint', default='', type=str,
+                    help='checkpoint file name')
+                    
 "----------------------------- General options -----------------------------"
 parser.add_argument('--nThreads', default=60, type=int,
                     help='Number of data loading threads')

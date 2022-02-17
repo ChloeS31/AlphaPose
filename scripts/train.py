@@ -255,6 +255,16 @@ def main():
     # Model Initialize
     m = preset_model(cfg)
     m = nn.DataParallel(m).cuda()
+    
+    print('model main() accessed')
+
+    if len(opt.checkpoint)>0:
+        print('checkpoint ', opt.checkpoint, ' has been checked ')
+        print('Loading pose model from %s...' % (opt.checkpoint,))
+        m.load_state_dict(torch.load(opt.checkpoint, map_location=opt.device))
+    else:
+      print('checkpoint ', opt.checkpoint, ' has not been checked')
+        
 
     combined_loss = (cfg.LOSS.get('TYPE') == 'Combined')
     if combined_loss:
