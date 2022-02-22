@@ -254,7 +254,7 @@ def main():
 
     # Model Initialize
     m = preset_model(cfg)
-    m = nn.DataParallel(m).cuda()
+    #m = nn.DataParallel(m).cuda()
     
     print('model main() accessed')
 
