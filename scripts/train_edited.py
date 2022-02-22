@@ -254,7 +254,19 @@ def main():
 
     # Model Initialize
     m = preset_model(cfg)
-    m = nn.DataParallel(m).cuda()
+    m = m.cuda() ##hjs
+    #m = nn.DataParallel(m).cuda()
+    
+
+    print('model main() accessed') ##hjs
+
+    if len(opt.checkpoint)>0:
+        print('checkpoint ', opt.checkpoint, ' has been checked ')
+        print('Loading pose model from %s...' % (opt.checkpoint,))
+        m.load_state_dict(torch.load(opt.checkpoint, map_location=opt.device))
+    else:
+      print('checkpoint has not been checked ', opt.checkpoint)
+        
 
     combined_loss = (cfg.LOSS.get('TYPE') == 'Combined')
     if combined_loss:
@@ -275,6 +287,11 @@ def main():
     writer = SummaryWriter('.tensorboard/{}-{}'.format(opt.exp_id, cfg.FILE_NAME))
 
     train_dataset = builder.build_dataset(cfg.DATASET.TRAIN, preset_cfg=cfg.DATA_PRESET, train=True)
+    print(type(train_dataset))
+    print(train_dataset)
+    import pdb 
+    pdb.set_trace()
+    
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=cfg.TRAIN.BATCH_SIZE * num_gpu, shuffle=True, num_workers=opt.nThreads)
 
