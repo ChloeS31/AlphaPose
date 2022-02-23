@@ -34,7 +34,7 @@ DATA_PRESET:
   - 48
 MODEL:
   TYPE: 'FastPose'
-  PRETRAINED: ''
+  PRETRAINED: 'multi_domain_fast50_regression_256x192.pth'
   TRY_LOAD: ''
   NUM_DECONV_FILTERS:
   - 256

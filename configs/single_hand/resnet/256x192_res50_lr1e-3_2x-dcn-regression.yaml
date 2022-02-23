@@ -41,7 +41,7 @@ DATA_PRESET:
   - 48
 MODEL:
   TYPE: 'FastPose'
-  PRETRAINED: ''
+  PRETRAINED: 'singlehand_fast50_dcn_regression_256x192.pth'
   TRY_LOAD: ''
   NUM_DECONV_FILTERS:
   - 256

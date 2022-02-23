@@ -34,7 +34,7 @@ DATA_PRESET:
 MODEL:
   TYPE: 'FastPose_DUC'
   BACKBONE: 'se-resnet'
-  PRETRAINED: ''
+  PRETRAINED: 'fast_421_res152_256x192.pth'
   TRY_LOAD: ''
   NUM_DECONV_FILTERS:
   - 256

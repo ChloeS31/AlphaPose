@@ -34,7 +34,7 @@ DATA_PRESET:
 MODEL:
   TYPE: 'FastPose_DUC'
   BACKBONE: 'shuffle'
-  PRETRAINED: ''
+  PRETRAINED: 'fast_421_res50-shuffle_256x192.pth'
   TRY_LOAD: ''
   NUM_DECONV_FILTERS:
   - 256
