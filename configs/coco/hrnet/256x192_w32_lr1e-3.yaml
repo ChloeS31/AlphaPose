@@ -33,7 +33,7 @@ DATA_PRESET:
   - 48
 MODEL:
   TYPE: 'PoseHighResolutionNet'
-  PRETRAINED: 'hrnet_w32_256x192.pth'
+  PRETRAINED: 'pretrained_models/hrnet_w32_256x192.pth'
   TRY_LOAD: ''
   NUM_LAYERS: 50
   FINAL_CONV_KERNEL: 1

@@ -34,7 +34,7 @@ DATA_PRESET:
   - 48
 MODEL:
   TYPE: 'FastPose'
-  PRETRAINED: 'multi_domain_fast50_dcn_combined_256x192.pth'
+  PRETRAINED: 'pretrained_models/multi_domain_fast50_dcn_combined_256x192.pth'
   TRY_LOAD: ''
   NUM_DECONV_FILTERS:
   - 256
