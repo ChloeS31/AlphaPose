@@ -16,6 +16,8 @@ from alphapose.utils.logger import board_writing, debug_writing
 from alphapose.utils.metrics import DataLogger, calc_accuracy, calc_integral_accuracy, evaluate_mAP
 from alphapose.utils.transforms import get_func_heatmap_to_coord
 
+import wandb
+
 num_gpu = torch.cuda.device_count()
 valid_batch = 1 * num_gpu
 if opt.sync:
@@ -252,6 +254,9 @@ def main():
     logger.info(cfg)
     logger.info('******************************')
 
+    wandb.init(project="alphapose", entity="starrygod")
+    wandb.config(cfg)
+    
     # Model Initialize
     m = preset_model(cfg)
     m = nn.DataParallel(m).cuda()
@@ -316,6 +321,10 @@ def main():
                 train_dataset, batch_size=cfg.TRAIN.BATCH_SIZE * num_gpu, shuffle=True, num_workers=opt.nThreads)
 
     torch.save(m.module.state_dict(), './exp/{}-{}/final_DPG.pth'.format(opt.exp_id, cfg.FILE_NAME))
+    wandb.log({"loss": loss})
+
+    # Optional
+    wandb.watch(model)
 
 
 def preset_model(cfg):

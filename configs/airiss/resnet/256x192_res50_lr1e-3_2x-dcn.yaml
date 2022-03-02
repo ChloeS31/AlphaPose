@@ -1,9 +1,9 @@
 DATASET:
   TRAIN:
     TYPE: 'Mscoco'
-    ROOT: '../drive/MyDrive/AIRISS_data/images'
-    IMG_PREFIX: 'train2017'
-    ANN: '../drive/MyDrive/AIRISS_data/data.json'
+    ROOT: './data/airiss/'
+    IMG_PREFIX: 'train'
+    ANN: 'train.json'
     AUG:
       FLIP: true
       ROT_FACTOR: 45
@@ -12,15 +12,15 @@ DATASET:
       PROB_HALF_BODY: 0.3
   VAL:
     TYPE: 'Mscoco'
-    ROOT: '../drive/MyDrive/AIRISS_data/images'
-    IMG_PREFIX: 'val2017'
-    ANN: '../drive/MyDrive/AIRISS_data/data.json'
+    ROOT: './data/airiss/'
+    IMG_PREFIX: 'val'
+    ANN: './val.json'
   TEST:
     TYPE: 'Mscoco_det'
-    ROOT: '../drive/MyDrive/AIRISS_data/images'
-    IMG_PREFIX: 'val2017'
-    DET_FILE: './exp/json/test_det_yolo.json'
-    ANN: '../drive/MyDrive/AIRISS_data/data.json'
+    ROOT: './data/airiss'
+    IMG_PREFIX: 'val'
+    DET_FILE: './exp/json/test_det_yolo_airiss.json'
+    ANN: './val.json'
 DATA_PRESET:
   TYPE: 'simple'
   SIGMA: 2

@@ -113,7 +113,8 @@ class CustomDataset(data.Dataset):
             img_id = self._items[idx]['id']
         else:
             img_path = self._items[idx]
-            img_id = int(os.path.splitext(os.path.basename(img_path))[0])
+#             img_id = int(os.path.splitext(os.path.basename(img_path))[0])
+            img_id = os.path.splitext(os.path.basename(img_path))[0]
 
         # load ground truth, including bbox, keypoints, image size
         label = copy.deepcopy(self._labels[idx])
