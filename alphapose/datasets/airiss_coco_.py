@@ -32,27 +32,7 @@ class AirissCoco(CustomDataset):
     EVAL_JOINTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
     num_joints = 18
     joint_pairs = [[1, 2], [3, 4], [5, 6], [7, 8],
-                   [9, 10], [11, 12], [13, 14], [15, 16], [10,17]]   # = skeleton 과 같음.
-
-
-#    0'nose',
-#    1'left_eye',
-#    2'right_eye',
-#    3'left_ear',
-#    4'right_ear',
-#    5'left_shoulder',
-#    6'right_shoulder',
-#    7'left_elbow',
-#    8'right_elbow',
-#    9'left_wrist',
-#    10'right_wrist',
-#    11'left_hip',
-#    12'right_hip',
-#    13'left_knee',
-#    14'right_knee',
-#    15'left_ankle',
-#    16'right_ankle',
-#    17'racket
+                   [9, 10], [11, 12], [13, 14], [15, 16], [9,17]]   # = skeleton 과 같음.
 
     def _load_jsons(self):
         """Load all image paths and labels from JSON annotation files into buffer."""

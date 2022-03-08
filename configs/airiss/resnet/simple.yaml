@@ -1,9 +1,9 @@
 DATASET:
   TRAIN:
     TYPE: 'AirissCoco'
-    ROOT: '../../../../share/airiss/badminton/' #'./data/airiss/'
+    ROOT: './data/airiss/'
     IMG_PREFIX: 'train'
-    ANN: 'train.json'
+    ANN: 'annotations/train.json'
     AUG:
       FLIP: true
       ROT_FACTOR: 40
@@ -12,9 +12,9 @@ DATASET:
       PROB_HALF_BODY: -1
   VAL:
     TYPE: 'AirissCoco'
-    ROOT: '../../../../share/airiss/badminton/' #'./data/airiss/'
+    ROOT: './data/airiss/'
     IMG_PREFIX: 'val'
-    ANN: 'val.json'
+    ANN: 'annotations/val.json'
 DATA_PRESET:
   TYPE: 'simple'
   SIGMA: 2
@@ -46,7 +46,7 @@ TRAIN:
   WORLD_SIZE: 4
   BATCH_SIZE: 32
   BEGIN_EPOCH: 0
-  END_EPOCH: 100
+  END_EPOCH: 1
   OPTIMIZER: 'adam'
   LR: 0.001
   LR_FACTOR: 0.1

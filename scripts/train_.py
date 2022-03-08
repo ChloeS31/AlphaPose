@@ -16,10 +16,7 @@ from alphapose.utils.logger import board_writing, debug_writing
 from alphapose.utils.metrics import DataLogger, calc_accuracy, calc_integral_accuracy, evaluate_mAP
 from alphapose.utils.transforms import get_func_heatmap_to_coord
 
-import mlflow
-
-## add init, config, watch + log, + hyper parameters
-import wandb
+#import wandb
 
 num_gpu = torch.cuda.device_count()
 valid_batch = 1 * num_gpu
@@ -85,8 +82,6 @@ def train(opt, train_loader, m, criterion, optimizer, writer):
 
             loss = loss_body_foot + loss_face_hand
             acc = acc_body_foot * num_body_foot / (num_body_foot + num_face_hand) + acc_face_hand * num_face_hand / (num_body_foot + num_face_hand)
-            mlflow.log_param("loss_body_foot", loss_body_foot)
-            mlflow.log_param("loss_face_hand", loss_face_hand)
         else:
             loss = criterion(output, labels, label_masks)
             acc = calc_integral_accuracy(output, labels, label_masks, output_3d=False, norm_type=norm_type)
@@ -95,13 +90,6 @@ def train(opt, train_loader, m, criterion, optimizer, writer):
             batch_size = inps[0].size(0)
         else:
             batch_size = inps.size(0)
-
-        # mlflow.log_param("batch_size", batch_size)
-        mlflow.log_param("loss type", cfg.LOSS.get('TYPE'))
-        # mlflow.log_param("norm type", norm_type)
-        mlflow.log_param("exp id", opt.exp_id)
-        mlflow.log_metric("acc", acc)
-        mlflow.log_metric("loss", loss.item())
 
         loss_logger.update(loss.item(), batch_size)
         acc_logger.update(acc, batch_size)
@@ -180,8 +168,7 @@ def validate(m, opt, heatmap_to_coord, batch_size=20):
 
             data = dict()
             data['bbox'] = bboxes[i, 0].tolist()
-            # data['image_id'] = int(img_ids[i])
-            data['image_id'] = img_ids[i]
+            data['image_id'] = int(img_ids[i])
             data['score'] = float(scores[i] + np.mean(pose_scores) + 1.25 * np.max(pose_scores))
             data['category_id'] = 1
             data['keypoints'] = keypoints
@@ -245,8 +232,7 @@ def validate_gt(m, opt, cfg, heatmap_to_coord, batch_size=20):
 
             data = dict()
             data['bbox'] = bboxes[i].tolist()
-            # data['image_id'] = int(img_ids[i])
-            data['image_id'] = img_ids[i]
+            data['image_id'] = int(img_ids[i])
             data['score'] = float(np.mean(pose_scores) + 1.25 * np.max(pose_scores))
             data['category_id'] = 1
             data['keypoints'] = keypoints
@@ -267,15 +253,13 @@ def main():
     logger.info('******************************')
     logger.info(cfg)
     logger.info('******************************')
-    
-    wandb.init(project="alphapose-test", entity="starrygod")
-    ## wandb.config(opt)
 
+    #wandb.init(project="alphapose", entity="starrygod")
+    #wandb.config(cfg)
+    
     # Model Initialize
     m = preset_model(cfg)
     m = nn.DataParallel(m).cuda()
-    
-    wandb.watch(m)
 
     combined_loss = (cfg.LOSS.get('TYPE') == 'Combined')
     if combined_loss:
@@ -336,10 +320,11 @@ def main():
             train_loader = torch.utils.data.DataLoader(
                 train_dataset, batch_size=cfg.TRAIN.BATCH_SIZE * num_gpu, shuffle=True, num_workers=opt.nThreads)
 
-        wandb.log({"loss": loss, "acc": miou})
-
     torch.save(m.module.state_dict(), './exp/{}-{}/final_DPG.pth'.format(opt.exp_id, cfg.FILE_NAME))
-    
+    #wandb.log({"loss": loss})
+
+    # Optional
+    #wandb.watch(model)
 
 
 def preset_model(cfg):
